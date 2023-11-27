@@ -10,44 +10,48 @@ const Contacts = () => {
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "title", headerName: "Registrar ID" },
+    { field: "id", headerName: "ID", flex:0.25},
+    { field: "title", headerName: "Tên sản phẩm" },
     {
       field: "color",
-      headerName: "Name",
+      headerName: "Màu sắc",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
       field: "rom",
-      headerName: "Age",
-      type: "number",
+      headerName: "ROM",
       headerAlign: "left",
       align: "left",
     },
     {
       field: "summary",
-      headerName: "Phone Number",
+      headerName: "Tổng quát",
       flex: 1,
     },
     {
       field: "price",
-      headerName: "Email",
+      headerName: "Giá thành",
       flex: 1,
     },
     {
       field: "thumbnail",
-      headerName: "Address",
+      headerName: "Ảnh chính",
       flex: 1,
     },
     {
       field: "description",
-      headerName: "City",
+      headerName: "Mô tả",
       flex: 1,
     },
     {
-      field: "amount",
-      headerName: "Zip Code",
+      field: "remain_amount",
+      headerName: "Số lượng",
+      flex: 1,
+    },
+    {
+      field: "discount_id",
+      headerName: "Giảm giá",
       flex: 1,
     },
   ];
