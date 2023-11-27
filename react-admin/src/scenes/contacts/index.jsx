@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+import { mockDataTeam } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 
@@ -11,42 +11,42 @@ const Contacts = () => {
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { field: "title", headerName: "Registrar ID" },
     {
-      field: "name",
+      field: "color",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
+      field: "rom",
       headerName: "Age",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "phone",
+      field: "summary",
       headerName: "Phone Number",
       flex: 1,
     },
     {
-      field: "email",
+      field: "price",
       headerName: "Email",
       flex: 1,
     },
     {
-      field: "address",
+      field: "thumbnail",
       headerName: "Address",
       flex: 1,
     },
     {
-      field: "city",
+      field: "description",
       headerName: "City",
       flex: 1,
     },
     {
-      field: "zipCode",
+      field: "amount",
       headerName: "Zip Code",
       flex: 1,
     },
@@ -55,8 +55,8 @@ const Contacts = () => {
   return (
     <Box m="20px">
       <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        title="Quản lí sản phẩm"
+        subtitle="Danh sách điện thoại được quản lí"
       />
       <Box
         m="40px 0 0 0"
@@ -91,7 +91,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={mockDataTeam}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
