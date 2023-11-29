@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Contacts from "./scenes/contacts";
-import Form from "./scenes/form";
+import Form from "./scenes/form/Form";
 import Team from "./scenes/team";
 import Admin from "./scenes/admin";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -37,3 +37,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
+

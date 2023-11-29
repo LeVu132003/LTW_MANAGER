@@ -1,45 +1,41 @@
-import { Box,IconButton,Button,TextField} from "@mui/material";
+import { Box, IconButton, Button, TextField } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import DeleteOutlineIcon from '@mui/icons-material/Close';
+import DeleteOutlineIcon from "@mui/icons-material/Close";
 import "./style.css";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useState } from "react";
 import "./style.css";
-import CloseIcon from '@mui/icons-material/Close';
-import * as React from 'react';
+import CloseIcon from "@mui/icons-material/Close";
+import * as React from "react";
 // import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-
-
-
-
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-    { field: "id", headerName: "ID", flex:0.25},
-    { field: "title", headerName: "Tên sản phẩm", flex:1.5},
+    { field: "id", headerName: "ID", flex: 0.25 },
+    { field: "title", headerName: "Tên sản phẩm", flex: 1.5 },
     {
       field: "color",
       headerName: "Màu sắc",
@@ -71,7 +67,7 @@ const Contacts = () => {
       renderCell: (params) => {
         return (
           <div className="userItem">
-            <img src={params.row.thumbnail } width="100%" height="100%" />
+            <img src={params.row.thumbnail} width="100%" height="100%" />
           </div>
         );
       },
@@ -98,22 +94,16 @@ const Contacts = () => {
       renderCell: (params) => {
         console.log(params);
         return (
-            <>
-              {HandleView(params)}
-             <HandleEdit/>
-              <IconButton className="userListDelete">
-              <DeleteForeverIcon/>
-                
-                {/* // onClick={() => {
-                //   deleteUser(params.id);
-                // }} */}
-              </IconButton>
-
-            </>
-
+          <>
+            {HandleView(params)}
+            <HandleEdit />
+            <IconButton className="userListDelete">
+              <DeleteForeverIcon />
+            </IconButton>
+          </>
         );
       },
-    }
+    },
   ];
 
   return (
@@ -126,8 +116,8 @@ const Contacts = () => {
         m="40px 0 0 0"
         height="80vh"
         sx={{
-          "& .MuiDataGrid-row .Mui-selected":{
-            height:" 200px" // Adjust the value to your desired row height
+          "& .MuiDataGrid-row .Mui-selected": {
+            height: " 200px", // Adjust the value to your desired row height
           },
           "& .MuiDataGrid-root": {
             border: "none",
@@ -161,7 +151,7 @@ const Contacts = () => {
           rows={mockDataTeam}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
-          getRowHeight={() => '100px'}
+          getRowHeight={() => "100px"}
         />
       </Box>
     </Box>
@@ -169,7 +159,6 @@ const Contacts = () => {
 };
 
 export default Contacts;
-
 
 function HandleEdit() {
   const [open, setOpen] = React.useState(false);
@@ -185,16 +174,15 @@ function HandleEdit() {
   return (
     <React.Fragment>
       <IconButton className="userListEdit" onClick={handleClickOpen}>
-              <EditIcon/>
+        <EditIcon />
+      </IconButton>
 
-              </IconButton>
-              
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>EDIT PRODUCTS</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
           </DialogContentText>
           <TextField
             autoFocus
@@ -216,7 +204,7 @@ function HandleEdit() {
   );
 }
 
-const HandleView=(params) =>{
+const HandleView = (params) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -230,19 +218,28 @@ const HandleView=(params) =>{
   return (
     <React.Fragment>
       <IconButton className="userListView" onClick={handleClickOpen}>
-      
-      <VisibilityIcon/>
+        <VisibilityIcon />
       </IconButton>
-              
+
       <Dialog open={open} onClose={handleClose} maxWidth="lg">
-        <DialogTitle padding="0"><h3>{params.row.title}</h3></DialogTitle>
-        <DialogTitle><h3>{params.row.price}</h3></DialogTitle>
-        <DialogContent display="flex" overflowy= "auto">
-          <DialogContentText >
+        <DialogTitle padding="0">
+          <h3>{params.row.title}</h3>
+        </DialogTitle>
+        <DialogTitle>
+          <h3>{params.row.price}</h3>
+        </DialogTitle>
+        <DialogContent display="flex" overflowy="auto">
+          <DialogContentText>
             <h5>{params.row.description}</h5>
-          </DialogContentText >
-            <img src={params.row.thumbnail} width="80%" height="80%" alt="Image" align="center" />
-          </DialogContent>
+          </DialogContentText>
+          <img
+            src={params.row.thumbnail}
+            width="80%"
+            height="80%"
+            alt="Image"
+            align="center"
+          />
+        </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose}>Subscribe</Button>
@@ -250,4 +247,4 @@ const HandleView=(params) =>{
       </Dialog>
     </React.Fragment>
   );
-}
+};
