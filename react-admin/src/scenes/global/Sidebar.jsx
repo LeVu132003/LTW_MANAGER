@@ -88,6 +88,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
+                  className="rounded-full"
                   src={`https://genk.mediacdn.vn/thumb_w/640/2016/4-success-kid-3596018b-1458201719100-1458267903230.jpg`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
@@ -142,3 +143,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
