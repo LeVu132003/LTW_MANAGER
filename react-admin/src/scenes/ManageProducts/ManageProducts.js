@@ -63,7 +63,9 @@ const ManageProducts = () => {
       renderCell: (params) => {
         return (
           <div className="userItem">
+
             <img src={params.row.thumbnail } className="imgItem" object-fit = "contain" height="100%" />
+
           </div>
         );
       },

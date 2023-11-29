@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -15,7 +15,17 @@ export default function ToggleUpdate(props) {
     const [open, setOpen] = React.useState(false);
     const values = props.values;
     const handleOpen = () => setOpen(!open);
-    
+    const [fullName, setFullName] = useState(values.row.full_name);
+    const [email, setEmail] = useState(values.row.email);
+    const [phoneNumber, setPhoneNumber] = useState(values.row.phone_number);
+    const [address, setAddress] = useState(values.row.address);
+    const [role, setRole] = useState(values.row.role);
+
+    const handleFullNameChange = (e) => setFullName(e.target.value);
+    const handleEmailChange = (e) => setEmail(e.target.value);
+    const handlePhoneNumberChange = (e) => setPhoneNumber(e.target.value);
+    const handleAddressChange = (e) => setAddress(e.target.value);
+    const handleRoleChange = (e) => setRole(e.target.value);
     return (
         <>
         <IconButton onClick={handleOpen} style={{padding:'0',height:'fit-content',alignSelf:'center'}}>
@@ -31,13 +41,13 @@ export default function ToggleUpdate(props) {
                         <p color="blue-gray">Mật khẩu</p>
                         <Input size="lg" type="password" name='password' label="Mật khẩu" value={values.row.password} disabled/>
 
-                        <Input size="lg" type="text" name='full_name' label="Họ và tên" value={values.row.full_name} required/>   
+                        <Input size="lg" type="text" name='full_name' label="Họ và tên" value={fullName} onChange={handleFullNameChange} required/>   
 
-                        <Input size="lg" type='email' name='email' label="Email" value={values.row.email} required/>     
+                        <Input size="lg" type='email' name='email' label="Email"  value={email} onChange={handleEmailChange} required/>     
 
-                        <Input size="lg" type="text" name='phone_number' label="Số điện thoại" value={values.row.phone_number} required/>     
+                        <Input size="lg" type="text" name='phone_number' label="Số điện thoại" value={phoneNumber} onChange={handlePhoneNumberChange} required/>     
 
-                        <Input size="lg"  type="text" name='address' label="Địa chỉ" value={values.row.address}/>     
+                        <Input size="lg"  type="text" name='address' label="Địa chỉ" value={address}  onChange={handleAddressChange}/>     
 
                         <div class="mb-3">
                             <label
@@ -45,14 +55,13 @@ export default function ToggleUpdate(props) {
                                 class="mb-2 inline-block text-neutral-700 dark:text-neutral-200"
                                 >Ảnh đại diện</label>
                             <input
-                                class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
                                 type="file"
                                 id="formFile" 
                                 style={{cursor:'pointer'}}
                             />
                         </div>
 
-                        <Select label="Vai trò" name="role" value={values.row.role}>
+                        <Select label="Vai trò" name="role" value={role} onChange={handleRoleChange}>
                             <Option value="user">Người dùng</Option>
                             <Option value="admin">Quản trị viên</Option>
                         </Select>

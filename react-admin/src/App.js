@@ -18,9 +18,9 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          <main className="content">
+        <div className="app container h-fit	">
+          <Sidebar  className='h-100'/>
+          <main className="content h-fit">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/profile" element={<Profile />} />
