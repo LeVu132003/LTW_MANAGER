@@ -1,67 +1,63 @@
 import { Box, IconButton, Button, TextField } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
+import { productData } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/Close";
-import "./style.css";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import "./ManageProducts.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { Formik } from "formik";
-import * as yup from "yup";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState } from "react";
-import "./style.css";
-import CloseIcon from "@mui/icons-material/Close";
 import * as React from "react";
-// import TextField from '@mui/material/TextField';
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-
-const Contacts = () => {
+import DialogDefault from './ToggleCreate'
+import DialogUpdate from './ToggleUpdate'
+import DialogDelete from './ToggleDelete'
+const ManageProducts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.25 },
-    { field: "title", headerName: "Tên sản phẩm", flex: 1.5 },
+    { field: "id", headerName: "ID",headerAlign: "center",align: "center", flex: 0.25 },
+    { field: "title", headerName: "Tên sản phẩm",headerAlign: "center", align: "center",flex: 1.5 },
     {
       field: "color",
       headerName: "Màu sắc",
+      headerAlign: "center",
       flex: 0.8,
       cellClassName: "name-column--cell",
+      align: "center",
+
     },
     {
       field: "rom",
       headerName: "ROM",
-      headerAlign: "left",
+      headerAlign: "center",
       flex: 0.8,
       align: "center",
     },
     {
-      field: "summary",
-      headerName: "Tổng quát",
-      flex: 1,
-    },
-    {
       field: "price",
       headerName: "Giá thành",
+      headerAlign: "center",
       flex: 1,
+      align: "center",
+
+    },
+    {
+      field: "remain_amount",
+      headerName: "Số lượng",
+      headerAlign: "center",
+      flex: 1,
+      align: "center",
+
     },
     {
       field: "thumbnail",
       headerName: "Ảnh chính",
+      headerAlign: "center",
       align: "center",
       flex: 1,
       renderCell: (params) => {
@@ -75,31 +71,24 @@ const Contacts = () => {
     {
       field: "description",
       headerName: "Mô tả",
+      headerAlign: "center",
       flex: 2,
+      align: "center",
+
     },
-    {
-      field: "remain_amount",
-      headerName: "Số lượng",
-      flex: 1,
-    },
-    {
-      field: "discount_id",
-      headerName: "Giảm giá",
-      flex: 1,
-    },
+
     {
       field: "action",
       headerName: "Action",
+      headerAlign: "center",
       flex: 1,
+      align: "center",
       renderCell: (params) => {
-        console.log(params);
         return (
           <>
             {HandleView(params)}
-            <HandleEdit />
-            <IconButton className="userListDelete">
-              <DeleteForeverIcon />
-            </IconButton>
+            <DialogUpdate values = {params}/>
+            <DialogDelete values = {params}/>
           </>
         );
       },
@@ -108,10 +97,13 @@ const Contacts = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="Quản lí sản phẩm"
-        subtitle="Danh sách điện thoại được quản lí"
-      />
+      <div style={{display:'flex',justifyContent:'space-between'}}>
+        <Header
+          title="Quản lí sản phẩm"
+          subtitle="Danh sách điện thoại được quản lí"
+        />
+        <DialogDefault/>
+      </div>
       <Box
         m="40px 0 0 0"
         height="80vh"
@@ -148,7 +140,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataTeam}
+          rows={productData}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           getRowHeight={() => "100px"}
@@ -158,51 +150,9 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default ManageProducts;
 
-function HandleEdit() {
-  const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <React.Fragment>
-      <IconButton className="userListEdit" onClick={handleClickOpen}>
-        <EditIcon />
-      </IconButton>
-
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>EDIT PRODUCTS</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-            value="hahahaah"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
-    </React.Fragment>
-  );
-}
 
 const HandleView = (params) => {
   const [open, setOpen] = React.useState(false);

@@ -2,10 +2,9 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import Contacts from "./scenes/contacts";
-import Form from "./scenes/form/Form";
-import Team from "./scenes/team";
-import Admin from "./scenes/admin";
+import ManageProducts from "./scenes/ManageProducts/ManageProducts";
+import ManageUsers from "./scenes/ManageUsers/ManageUsers";
+import Profile from './scenes/profile/Profile'
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 
@@ -24,10 +23,9 @@ function App() {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/products" element={<ManageProducts />} />
+              <Route path="/users" element={<ManageUsers />} />
             </Routes>
           </main>
         </div>
