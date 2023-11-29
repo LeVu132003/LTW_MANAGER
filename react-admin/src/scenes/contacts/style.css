@@ -1,0 +1,33 @@
+.userListEdit {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background: #6c757d;
+    color: white;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.userListDelete {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background:#dc3545;
+    color: white;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.userListView {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background: #0d6efd;
+    color: white;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.userItem {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height:100%;
+}

@@ -4,8 +4,12 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Contacts from "./scenes/contacts";
 import Form from "./scenes/form";
+import Team from "./scenes/team";
+import Admin from "./scenes/admin";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
+
+
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -22,6 +26,8 @@ function App() {
             <Routes>
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/form" element={<Form />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           </main>
         </div>
