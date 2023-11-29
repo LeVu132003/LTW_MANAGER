@@ -63,7 +63,7 @@ const ManageProducts = () => {
       renderCell: (params) => {
         return (
           <div className="userItem">
-            <img src={params.row.thumbnail} width="100%" height="100%" />
+            <img src={params.row.thumbnail } className="imgItem" object-fit = "contain" height="100%" />
           </div>
         );
       },
@@ -124,9 +124,9 @@ const ManageProducts = () => {
             backgroundColor: colors.blueAccent[700],
             borderBottom: "none",
           },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
+          // "& .MuiDataGrid-virtualScroller": {
+          //   backgroundColor: colors.primary[400],
+          // },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
             backgroundColor: colors.blueAccent[700],
@@ -142,14 +142,16 @@ const ManageProducts = () => {
         <DataGrid
           rows={productData}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
-          getRowHeight={() => "100px"}
+          rowHeight={100}
         />
       </Box>
     </Box>
   );
 };
-
+const myCustomFooterClass = {
+  background: "red",
+  fontSize: 16,
+};
 export default ManageProducts;
 
 
