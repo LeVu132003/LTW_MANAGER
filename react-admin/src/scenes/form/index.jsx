@@ -1,10 +1,12 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button,IconButton, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useState } from "react";
 import "./style.css";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -24,10 +26,17 @@ const Form = () => {
           <div className="overlay">
             <div className="modal-content">
               <Box m="20px">
-                <Header
-                  title="CREATE USER"
-                  subtitle="Create a New User Profile"
-                />
+                <Box display="flex" justifyContent="space-between">
+                  <Header
+                    title="CREATE USER"
+                    subtitle="Create a New User Profile"
+                    
+                  />
+                 <IconButton onClick={toggleModal}>
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+                
 
                 <Formik
                   onSubmit={handleFormSubmit}

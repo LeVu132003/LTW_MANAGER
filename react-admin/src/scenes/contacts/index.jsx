@@ -1,9 +1,37 @@
-import { Box } from "@mui/material";
+import { Box,IconButton,Button,TextField} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import DeleteOutlineIcon from '@mui/icons-material/Close';
+import "./style.css";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Formik } from "formik";
+import * as yup from "yup";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useState } from "react";
+import "./style.css";
+import CloseIcon from '@mui/icons-material/Close';
+import * as React from 'react';
+// import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+
+
+
+
 
 const Contacts = () => {
   const theme = useTheme();
@@ -11,18 +39,19 @@ const Contacts = () => {
 
   const columns = [
     { field: "id", headerName: "ID", flex:0.25},
-    { field: "title", headerName: "Tên sản phẩm" },
+    { field: "title", headerName: "Tên sản phẩm", flex:1.5},
     {
       field: "color",
       headerName: "Màu sắc",
-      flex: 1,
+      flex: 0.8,
       cellClassName: "name-column--cell",
     },
     {
       field: "rom",
       headerName: "ROM",
       headerAlign: "left",
-      align: "left",
+      flex: 0.8,
+      align: "center",
     },
     {
       field: "summary",
@@ -37,12 +66,20 @@ const Contacts = () => {
     {
       field: "thumbnail",
       headerName: "Ảnh chính",
+      align: "center",
       flex: 1,
+      renderCell: (params) => {
+        return (
+          <div className="userItem">
+            <img src={params.row.thumbnail } width="100%" height="100%" />
+          </div>
+        );
+      },
     },
     {
       field: "description",
       headerName: "Mô tả",
-      flex: 1,
+      flex: 2,
     },
     {
       field: "remain_amount",
@@ -54,6 +91,29 @@ const Contacts = () => {
       headerName: "Giảm giá",
       flex: 1,
     },
+    {
+      field: "action",
+      headerName: "Action",
+      flex: 1,
+      renderCell: (params) => {
+        console.log(params);
+        return (
+            <>
+              {HandleView(params)}
+             <HandleEdit/>
+              <IconButton className="userListDelete">
+              <DeleteForeverIcon/>
+                
+                {/* // onClick={() => {
+                //   deleteUser(params.id);
+                // }} */}
+              </IconButton>
+
+            </>
+
+        );
+      },
+    }
   ];
 
   return (
@@ -64,13 +124,16 @@ const Contacts = () => {
       />
       <Box
         m="40px 0 0 0"
-        height="75vh"
+        height="80vh"
         sx={{
+          "& .MuiDataGrid-row .Mui-selected":{
+            height:" 200px" // Adjust the value to your desired row height
+          },
           "& .MuiDataGrid-root": {
             border: "none",
           },
           "& .MuiDataGrid-cell": {
-            borderBottom: "none",
+            border: "none",
           },
           "& .name-column--cell": {
             color: colors.greenAccent[300],
@@ -98,6 +161,7 @@ const Contacts = () => {
           rows={mockDataTeam}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          getRowHeight={() => '100px'}
         />
       </Box>
     </Box>
@@ -105,3 +169,85 @@ const Contacts = () => {
 };
 
 export default Contacts;
+
+
+function HandleEdit() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <React.Fragment>
+      <IconButton className="userListEdit" onClick={handleClickOpen}>
+              <EditIcon/>
+
+              </IconButton>
+              
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>EDIT PRODUCTS</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We
+            will send updates occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+            value="hahahaah"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
+  );
+}
+
+const HandleView=(params) =>{
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <React.Fragment>
+      <IconButton className="userListView" onClick={handleClickOpen}>
+      
+      <VisibilityIcon/>
+      </IconButton>
+              
+      <Dialog open={open} onClose={handleClose} maxWidth="lg">
+        <DialogTitle padding="0"><h3>{params.row.title}</h3></DialogTitle>
+        <DialogTitle><h3>{params.row.price}</h3></DialogTitle>
+        <DialogContent display="flex" overflowy= "auto">
+          <DialogContentText >
+            <h5>{params.row.description}</h5>
+          </DialogContentText >
+            <img src={params.row.thumbnail} width="80%" height="80%" alt="Image" align="center" />
+          </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
+  );
+}
