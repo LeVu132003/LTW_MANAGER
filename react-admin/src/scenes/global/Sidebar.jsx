@@ -5,17 +5,20 @@ import {
   List,
   ListItem,
   ListItemPrefix,
+  Avatar
 } from "@material-tailwind/react";
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import PowerSettingsNewRoundedIcon from '@mui/icons-material/PowerSettingsNewRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
+
 export default function Sidebar() {
   return (
     <Card className=" w-full max-w-[20rem] p-4 shadow-xl bg-black shadow-black rounded-none" style={{ minHeight: '100vh' }}>
       <div className="mb-2 p-4">
-        <Typography variant="h5" color="white">
+        <Avatar src="https://i.pinimg.com/736x/26/fc/02/26fc02d99371bd107494db6d281efd26.jpg" className="mb-3" alt="avatar" size="xl" />
+        <Typography variant="h4" color="white">
           Admin01
         </Typography>
       </div>
