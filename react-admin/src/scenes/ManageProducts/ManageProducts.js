@@ -142,7 +142,10 @@ const ManageProducts = () => {
     </Box>
   );
 };
-
+const myCustomFooterClass = {
+  background: "red",
+  fontSize: 16,
+};
 export default ManageProducts;
 
 
