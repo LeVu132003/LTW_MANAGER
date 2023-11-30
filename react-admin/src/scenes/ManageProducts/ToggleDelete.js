@@ -6,7 +6,6 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
- import './ToggleUpdate.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import {  IconButton } from "@mui/material";
 export default function DialogDelete(props) {

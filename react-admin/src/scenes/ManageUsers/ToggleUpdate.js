@@ -8,7 +8,6 @@ import {
   Select,
   Option
 } from "@material-tailwind/react";
- import './ToggleUpdate.css'
 import EditIcon from '@mui/icons-material/Edit';
 import {  IconButton } from "@mui/material";
 export default function ToggleUpdate(props) {

@@ -1,10 +1,8 @@
-import { Box, IconButton, Button, TextField } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { Box, IconButton, Button } from "@mui/material";
 import { tokens } from "../../theme";
 import { productData } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import "./ManageProducts.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
@@ -12,9 +10,17 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import DialogDefault from './ToggleCreate'
+import ToggleCreate from './ToggleCreate'
 import DialogUpdate from './ToggleUpdate'
 import DialogDelete from './ToggleDelete'
+import {
+  DataGrid,
+  gridPageCountSelector,
+  GridPagination,
+  useGridApiContext,
+  useGridSelector,
+} from '@mui/x-data-grid';
+import MuiPagination from '@mui/material/Pagination';
 const ManageProducts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -63,7 +69,9 @@ const ManageProducts = () => {
       renderCell: (params) => {
         return (
           <div className="userItem">
-            <img src={params.row.thumbnail} height="100%" />
+
+            <img src={params.row.thumbnail } className="imgItem" object-fit = "contain" height="100%" />
+
           </div>
         );
       },
@@ -102,48 +110,33 @@ const ManageProducts = () => {
           title="Quản lí sản phẩm"
           subtitle="Danh sách điện thoại được quản lí"
         />
-        <DialogDefault/>
+        <ToggleCreate/>
       </div>
       <Box
         m="40px 0 0 0"
         height="80vh"
         sx={{
-          "& .MuiDataGrid-row .Mui-selected": {
-            height: " 200px", // Adjust the value to your desired row height
-          },
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            border: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
+            backgroundColor: colors.dark,
+            color: colors.light,
           },
           "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
+            backgroundColor: colors.dark,
+            color: colors.light,
           },
         }}
       >
         <DataGrid
+          pagination
+          slots={{
+            pagination: CustomPagination,
+          }}
           rows={productData}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
-          getRowHeight={() => "100px"}
+          rowHeight={100}
+          initialState={{
+          pagination: { paginationModel: { pageSize: 25 } },
+        }}
         />
       </Box>
     </Box>
@@ -198,3 +191,24 @@ const HandleView = (params) => {
     </React.Fragment>
   );
 };
+
+function Pagination({ page, onPageChange, className }) {
+  const apiRef = useGridApiContext();
+  const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+
+  return (
+    <MuiPagination
+      color="primary"
+      className={className}
+      count={pageCount}
+      page={page + 1}
+      onChange={(event, newPage) => {
+        onPageChange(event, newPage - 1);
+      }}
+    />
+  );
+}
+
+function CustomPagination(props) {
+  return <GridPagination ActionsComponent={Pagination} {...props} />;
+}

@@ -8,8 +8,6 @@ import Profile from './scenes/profile/Profile'
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 
-
-
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -18,9 +16,9 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app container h-fit	">
-          <Sidebar  className='h-100'/>
-          <main className="content h-fit">
+        <div className="app container h-100 flex" style={{height:'fit-content'}}>
+          <Sidebar className="h-100" />
+          <main className="content flex-1" style={{height:'fit-content'}}>
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/profile" element={<Profile />} />
@@ -35,8 +33,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-

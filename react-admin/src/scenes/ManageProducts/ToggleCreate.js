@@ -7,8 +7,7 @@ import {
   Input,
   Textarea,
 } from "@material-tailwind/react";
- import './ToggleCreate.css'
-export default function DialogUpdate() {
+export default function ToggleCreate() {
   const [open, setOpen] = React.useState(false);
  
   const handleOpen = () => setOpen(!open);

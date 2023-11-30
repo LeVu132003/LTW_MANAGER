@@ -7,7 +7,6 @@ import {
   Input,
   Textarea
 } from "@material-tailwind/react";
- import './ToggleUpdate.css'
 import EditIcon from '@mui/icons-material/Edit';
 import {  IconButton } from "@mui/material";
 import { useState } from "react";
