@@ -30,39 +30,41 @@ export default function EditPassword() {
       >
         <Card className="mx-auto w-full max-w-[24rem] p-2">
           <CardBody className="flex flex-col gap-4">
-            <Typography variant="h4" color="blue-gray" className="text-center">
-              Chỉnh sửa tên người dùng
+            <Typography variant="h5" color="blue-gray" className="text-center w-fit">
+              Thay đổi mật khẩu
             </Typography>
-            <Input
-                type="password"
-                size="lg"
-                label="Mật khẩu"
-                name="oldPass"
-                value={oldPass}
-                onChange={(e) => setOldPass(e.target.value)}
-            />
-            <Input
-                type="password"
-                size="lg"
-                label="Mật khẩu mới"
-                name="newPass"
-                value={newPass}
-                onChange={(e) => setNewPass(e.target.value)}
-            />
-            <Input
-                type="password"
-                size="lg"
-                label="Xác nhận mật khẩu mới"
-                name="confirmPass"
-                value={confirmPass}
-                onChange={(e) => setConfirmPass(e.target.value)}
-            />
+            <form>
+                <div className="grid grid-cols-1 gap-y-4">
+                    <Input
+                        type="password"
+                        size="lg"
+                        label="Mật khẩu"
+                        name="oldPass"
+                        value={oldPass}
+                        onChange={(e) => setOldPass(e.target.value)}
+                    />
+                    <Input
+                        type="password"
+                        size="lg"
+                        label="Mật khẩu mới"
+                        name="newPass"
+                        value={newPass}
+                        onChange={(e) => setNewPass(e.target.value)}
+                    />
+                    <Input
+                        type="password"
+                        size="lg"
+                        label="Xác nhận mật khẩu mới"
+                        name="confirmPass"
+                        value={confirmPass}
+                        onChange={(e) => setConfirmPass(e.target.value)}
+                    />
+                    <Button variant="gradient" onClick={handleOpen} fullWidth>
+                    Xác nhận
+                    </Button>
+                </div>
+            </form>
           </CardBody>
-          <CardFooter className="pt-0">
-            <Button variant="gradient" onClick={handleOpen} fullWidth>
-              Xác nhận
-            </Button>
-          </CardFooter>
         </Card>
       </Dialog>
     </>

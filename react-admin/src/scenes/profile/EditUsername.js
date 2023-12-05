@@ -34,33 +34,35 @@ const password = '123456789';
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem] p-2">
-          <CardBody className="flex flex-col gap-4">
-            <Typography variant="h4" color="blue-gray" className="text-center">
-              Chỉnh sửa mật khẩu
+          <CardBody className="flex flex-col gap-6">
+            <Typography variant="h5" color="blue-gray" className="text-center w-fit">
+              Chỉnh sửa tên người dùng
             </Typography>
-            <Input
-                type="password"
-                size="lg"
-                label="Mật khẩu"
-                name="pass"
-                value={pass}
-                onChange={(e) => handleCheckPass(e)}
-            />
-            <Input
-                type="text"
-                size="lg"
-                label="Tên người dùng"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                disabled = {!checkPass}
-            />
+            <form>
+                <div className="grid grid-cols-1 gap-y-4">
+                    <Input
+                        type="password"
+                        size="lg"
+                        label="Mật khẩu"
+                        name="pass"
+                        value={pass}
+                        onChange={(e) => handleCheckPass(e)}
+                    />
+                    <Input
+                        type="text"
+                        size="lg"
+                        label="Tên người dùng"
+                        name="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        disabled = {!checkPass}
+                    />
+                    <Button variant="gradient" type="submit" onClick={handleOpen} fullWidth>
+                    Xác nhận
+                    </Button>
+                </div>
+            </form>
           </CardBody>
-          <CardFooter className="pt-0">
-            <Button variant="gradient" onClick={handleOpen} fullWidth>
-              Xác nhận
-            </Button>
-          </CardFooter>
         </Card>
       </Dialog>
     </>
