@@ -16,7 +16,7 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app container h-100 flex" style={{height:'fit-content'}}>
+        <div className=" h-100 flex" style={{height:'fit-content'}}>
           <Sidebar className="h-100" />
           <main className="content flex-1" style={{height:'fit-content'}}>
             <Topbar setIsSidebar={setIsSidebar} />
