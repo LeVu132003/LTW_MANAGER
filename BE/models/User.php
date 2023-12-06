@@ -45,29 +45,50 @@ class User {
         global $connection;
         $sql = "UPDATE account SET `full_name`='$full_name', `email`='$email', `phone_number`='$phone_number', `address`='$address' WHERE `id`= $id";
         if ($connection->query($sql)) {
-            return true;
+            return "Update info successful";
         }
-        return false;
+        return "Update failed";
     }
-    public function updatePass($id,$password)
+    public function updatePass($id,$oldPass,$newPass)
     {
         global $connection;
-        $sql = "UPDATE account SET `password`='$password' WHERE `id`= $id";
-        if ($connection->query($sql))
+        $selectPass = "SELECT `password` FROM `account` WHERE `id` = '$id'";
+        $res = mysqli_query($connection,$selectPass);
+        $res = mysqli_fetch_array($res, MYSQLI_NUM);
+        $pass = $res[0];
+
+        if($pass != $oldPass)
         {
-            return true;
+            return "Incorrect Password";
         }
-        return false;
+        else{
+            $sql = "UPDATE account SET `password`='$newPass' WHERE `id`= $id";
+            $connection->query($sql);
+            return "Update password success";
+
+        }
+        
+
     }
-    public function updateUsername($id,$username)
+    public function updateUsername($id,$username,$password)
     {
         global $connection;
-        $sql = "UPDATE account SET `username`='$username' WHERE `id`= $id";
-        if ($connection->query($sql))
+        $selectPass = "SELECT `password` FROM `account` WHERE `id` = '$id'";
+        $res = mysqli_query($connection,$selectPass);
+        $res = mysqli_fetch_array($res, MYSQLI_NUM);
+        $pass = $res[0];
+
+        if($pass != $password)
         {
-            return true;
+            return "Incorrect Password";
         }
-        return false; 
+        else{
+            $sql = "UPDATE account SET `username`='$username' WHERE `id`= $id";
+            $connection->query($sql);
+            return "Update username success";
+
+        }
+
     }
     public function getPassword($id)
     {
