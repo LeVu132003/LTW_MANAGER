@@ -12,10 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
     exit(0);
 }
-require_once('model/Model.php');
+include_once('./controllers/UserController.php');
 $_POST = json_decode(file_get_contents("php://input"),true);
-$controller= isset($_GET["controller"]) ? $_GET["controler"].'Controller' :"Model";
-$action = isset($_POST["action"])? $_POST["action"]:'getUser';
-$usercontroller = new $controller();
-$usercontroller->$action();
+// $controller= isset($_GET["controller"]) ? $_GET["controler"].'Controller' :"Model";
+$action = isset($_POST["action"])? $_POST["action"]:'getUseraa';
+    $user = new UserController();
+   $user->$action();
+    // $user->getUser();
+    echo $_POST["id"];
 ?>

@@ -3,6 +3,7 @@ import { Button, Input } from "@material-tailwind/react";
 import Header from "../../components/Header";
 import EditPassword from './EditPassword'
 import EditUsername from './EditUsername'
+import axios from "axios";
 const Profile = () => {
   // const [username, setUsername] = useState("VuLee");
   // const [password, setPassword] = useState("********");
@@ -24,7 +25,18 @@ const Profile = () => {
   };
   const handleEditInfo = (e) => {
     e.preventDefault();
-    setOnEdit(!onEdit)
+    setOnEdit(!onEdit);
+    const newUser = {
+      id: 8,
+      full_name: fullname,
+      email: email,
+      phone_number: phoneNumber,
+      action: "updateInfo",
+    };
+    axios.post("http://localhost:3000/LTW_MANAGER/BE/index.php",newUser).then((res) => {console.log(res);
+  })
+
+
   }
   return (
     <div className="grid m-4 gap-y-4">
