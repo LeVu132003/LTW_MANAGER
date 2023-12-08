@@ -8,7 +8,7 @@ const Profile = () => {
   // const [username, setUsername] = useState("VuLee");
   // const [password, setPassword] = useState("********");
   const [fullname, setFullname] = useState("Lê Hoàng Anh Vũ");
-  const [email, setEmail] = useState("levu132003@gmail.com ");
+  const [email, setEmail] = useState("levu132003@gmail.com");
   const [phoneNumber, setPhoneNumber] = useState("0935680614");
   const [address, setAddress] = useState("Bụi đời");
   const [onEdit, setOnEdit] = useState (false);
@@ -23,20 +23,23 @@ const Profile = () => {
     console.log("Phone Number:", phoneNumber);
     console.log("Address:", address);
   };
-  const handleEditInfo = (e) => {
+  const handleEditInfo =  (e) => {
     e.preventDefault();
     setOnEdit(!onEdit);
-    const newUser = {
+
+     axios.post("http://localhost:3000/LTW_MANAGER/BE/index.php",{
       id: 8,
       full_name: fullname,
       email: email,
       phone_number: phoneNumber,
       action: "updateInfo",
-    };
-    axios.post("http://localhost:3000/LTW_MANAGER/BE/index.php",newUser).then((res) => {console.log(res);
+    }).then((res) => {console.log(res.data);
   })
 
-
+    console.log(fullname);
+    console.log(email);
+    console.log(phoneNumber);
+    console.log(address);
   }
   return (
     <div className="grid m-4 gap-y-4">
@@ -47,30 +50,8 @@ const Profile = () => {
           <EditPassword/>
         </div>
       </div>
-      <form>
+      <form onSubmit={(e)=>handleEditInfo(e)}>
         <div className="grid gap-y-4">
-          {/* <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Input
-                size="lg"
-                label="Tên tài khoản"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                disabled
-              />
-            </div>
-            <div>
-              <Input
-                size="lg"
-                label="Mật khẩu"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled
-              />
-            </div>
-          </div> */}
           <div className="grid grid-cols-1 gap-4">
             <div>
               <Input
@@ -115,7 +96,7 @@ const Profile = () => {
           </div>
           <div className="grid grid-cols-1 gap-4">
             <div className="flex justify-end">
-              <Button type="submit" onClick={(e) => handleEditInfo(e)}>
+              <Button type="submit" >
                 {onEdit ? (`Lưu thông tin`) : (`Chỉnh sửa thông tin`)}
               </Button>
             </div>

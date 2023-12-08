@@ -40,18 +40,19 @@
         public function updatePass()
         {
             $id = isset($_POST["id"])?$_POST["id"]:'';
-            $password = isset($_POST["password"])?$_POST["password"]:'';
+            $oldPass = md5(isset($_POST["oldPass"])?$_POST["oldPass"]:'');
+            $newPass = md5(isset($_POST["newPass"])?$_POST["newPass"]:'');
             $user = new User();
-            $result = $user->updatePass($id,$password);
+            $result = $user->updatePass($id,$oldPass,$newPass);
             echo json_encode($result);
         }
         public function updateUsername()
         {
             $id = isset($_POST["id"])?$_POST["id"]:'';
             $username = isset($_POST["username"])?$_POST["username"]:'';
-            $password = isset($_POST["username"])?$_POST["username"]:'';
+            $password = md5(isset($_POST["password"])?$_POST["password"]:'');
             $user = new User();
-            $result = $user->updateUsername($id,$username);
+            $result = $user->updateUsername($id,$username,$password);
             echo json_encode($result);
         }
         public function getPassword()

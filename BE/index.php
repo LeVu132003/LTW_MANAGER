@@ -15,9 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 include_once('./controllers/UserController.php');
 $_POST = json_decode(file_get_contents("php://input"),true);
 // $controller= isset($_GET["controller"]) ? $_GET["controler"].'Controller' :"Model";
-$action = isset($_POST["action"])? $_POST["action"]:'getUseraa';
+$action = isset($_POST["action"])? $_POST["action"]:'getListUser';
     $user = new UserController();
    $user->$action();
-    // $user->getUser();
-    echo $_POST["id"];
+
 ?>

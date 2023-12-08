@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios  from "axios";
 import {
   Button,
   Dialog,
@@ -17,12 +18,15 @@ export default function EditPassword() {
   const [pass, setPass] = useState();
   const [username, setUsername] = useState();
   const [checkPass, setCheckPass] = useState(false);
-const password = '123456789';
- function  handleCheckPass (e) {
-    setPass(e.target.value)
-    if (pass === password) {
-        setCheckPass(true);
-    }
+ function  handleSubmit (e) {
+  e.preventDefault();
+  axios.post("http://localhost:3000/LTW_MANAGER/BE/index.php",{
+    id: 6,
+    password: pass,
+    username: username,
+    action: "updateUsername",
+  }).then((res) => {console.log(res.data);
+})
  }
   return (
     <>
@@ -38,7 +42,7 @@ const password = '123456789';
             <Typography variant="h5" color="blue-gray" className="text-center w-fit">
               Chỉnh sửa tên người dùng
             </Typography>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 gap-y-4">
                     <Input
                         type="password"
@@ -46,7 +50,7 @@ const password = '123456789';
                         label="Mật khẩu"
                         name="pass"
                         value={pass}
-                        onChange={(e) => handleCheckPass(e)}
+                        onChange={(e) => setPass(e.target.value)}
                     />
                     <Input
                         type="text"
@@ -55,7 +59,7 @@ const password = '123456789';
                         name="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        disabled = {!checkPass}
+                        // disabled = {!checkPass}
                     />
                     <Button variant="gradient" type="submit" onClick={handleOpen} fullWidth>
                     Xác nhận
