@@ -7,7 +7,8 @@ import ManageUsers from "./scenes/ManageUsers/ManageUsers";
 import Profile from './scenes/profile/Profile'
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -27,6 +28,7 @@ function App() {
             </Routes>
           </main>
         </div>
+        <ToastContainer/>;
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

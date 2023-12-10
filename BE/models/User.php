@@ -1,9 +1,10 @@
 <?php
-require_once ("D:\BTL_LTW\LTW_MANAGER\BE\config\Database.php");
+require_once("D:\BTL_LTW\LTW_MANAGER\BE\config\Database.php");
 
 $connection = Database::getInstance()->getConnection();
 
-class User {
+class User
+{
     public $id;
     public $username;
     public $password;
@@ -15,128 +16,119 @@ class User {
     public $email;
     public $image;
 
-    function __construct() {
-        
+    function __construct()
+    {
     }
     public function read()
-    {   
+    {
         global $connection;
         $myArray = [];
         $sql = "SELECT `id`,`username`,`password`,`phone_number`,`address`,`role`,`full_name`,`email`,`image` FROM `account`";
-        $retval = mysqli_query( $connection,$sql );
-        while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
+        $retval = mysqli_query($connection, $sql);
+        while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
             array_push($myArray, (object)[
                 // 'id' => "{$row['id']}",   
-                'id' => "{$row['id']}", 
-                'username' => "{$row['username']}",   
-                'password' => "{$row['password']}",  
-                'phone_number' => "{$row['phone_number']}",  
-                'address' => "{$row['address']}",  
-                'role' => "{$row['role']}",  
-                'full_name' => "{$row['full_name']}",  
-                'email' => "{$row['email']}",  
-                'image' => "{$row['image']}",              
-        ]);      
-         }
-         return $myArray;
+                'id' => "{$row['id']}",
+                'username' => "{$row['username']}",
+                'password' => "{$row['password']}",
+                'phone_number' => "{$row['phone_number']}",
+                'address' => "{$row['address']}",
+                'role' => "{$row['role']}",
+                'full_name' => "{$row['full_name']}",
+                'email' => "{$row['email']}",
+                'image' => "{$row['image']}",
+            ]);
+        }
+        return $myArray;
     }
-    public function updateInfo($id,$full_name,$email,$phone_number,$address)
+    public function updateInfo($id, $full_name, $email, $phone_number, $address)
     {
         global $connection;
         $sql = "UPDATE account SET `full_name`='$full_name', `email`='$email', `phone_number`='$phone_number', `address`='$address' WHERE `id`= $id";
         if ($connection->query($sql)) {
-            return "Update info successful";
+            return true;
         }
-        return "Update failed";
+        return false;
     }
-    public function updatePass($id,$oldPass,$newPass)
+    public function updatePass($id, $oldPass, $newPass)
     {
         global $connection;
         $selectPass = "SELECT `password` FROM `account` WHERE `id` = '$id'";
-        $res = mysqli_query($connection,$selectPass);
+        $res = mysqli_query($connection, $selectPass);
         $res = mysqli_fetch_array($res, MYSQLI_NUM);
         $pass = $res[0];
 
-        if($pass != $oldPass)
-        {
-            return "Incorrect Password";
-        }
-        else{
+        if ($pass != $oldPass) {
+            return false;
+        } else {
             $sql = "UPDATE account SET `password`='$newPass' WHERE `id`= $id";
             $connection->query($sql);
-            return "Update password success";
-
+            return true;
         }
-        
-
     }
-    public function updateUsername($id,$username,$password)
+    public function updateUsername($id, $username, $password)
     {
         global $connection;
         $selectPass = "SELECT `password` FROM `account` WHERE `id` = '$id'";
-        $res = mysqli_query($connection,$selectPass);
+        $res = mysqli_query($connection, $selectPass);
         $res = mysqli_fetch_array($res, MYSQLI_NUM);
         $pass = $res[0];
 
-        if($pass != $password)
-        {
-            return "Incorrect Password";
-        }
-        else{
+        if ($pass != $password) {
+            return false;
+        } else {
             $sql = "UPDATE account SET `username`='$username' WHERE `id`= $id";
             $connection->query($sql);
-            return "Update username success";
-
+            return true;
         }
-
     }
     public function getPassword($id)
     {
         global $connection;
         $myArray = [];
         $sql = "SELECT `id`, `password` FROM `account` WHERE `id`= $id";
-        $retval = mysqli_query( $connection,$sql );
-        while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
+        $retval = mysqli_query($connection, $sql);
+        while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
             array_push($myArray, (object)[
                 // 'id' => "{$row['id']}",   
-                'id' => "{$row['id']}", 
-                'password' => "{$row['password']}",            
-        ]);      
-         }
-         return $myArray;
+                'id' => "{$row['id']}",
+                'password' => "{$row['password']}",
+            ]);
+        }
+        return $myArray;
     }
     public function read_single($id)
     {
-        
+
         global $connection;
         $myArray = [];
         $sql = "SELECT `id`,`username`,`password`,`phone_number`,`address`,`role`,`full_name`,`email`,`image`
         FROM `account` WHERE `id`='$id'";
-        $result = mysqli_query( $connection,$sql );
-        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        $result = mysqli_query($connection, $sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             array_push($myArray, (object)[
                 // 'id' => "{$row['id']}",   
-                'id' => "{$row['id']}", 
-                'username' => "{$row['username']}",   
-                'password' => "{$row['password']}",  
-                'phone_number' => "{$row['phone_number']}",  
-                'address' => "{$row['address']}",  
-                'role' => "{$row['role']}",  
-                'full_name' => "{$row['full_name']}",  
-                'email' => "{$row['email']}",  
-                'image' => "{$row['image']}",    
-        ]);      
-         }
+                'id' => "{$row['id']}",
+                'username' => "{$row['username']}",
+                'password' => "{$row['password']}",
+                'phone_number' => "{$row['phone_number']}",
+                'address' => "{$row['address']}",
+                'role' => "{$row['role']}",
+                'full_name' => "{$row['full_name']}",
+                'email' => "{$row['email']}",
+                'image' => "{$row['image']}",
+            ]);
+        }
         return $myArray;
     }
     public function create($input)
     {
         global $connection;
-        
+
 
         $this->username = $input->username;
         $this->password = $input->password;
-        $this->phone_number =$input->phone_number;
+        $this->phone_number = $input->phone_number;
         $this->address = $input->address;
         $this->role = $input->role;
         $this->full_name = $input->full_name;
@@ -160,7 +152,4 @@ class User {
         }
         return false;
     }
-
-
-    
 }
