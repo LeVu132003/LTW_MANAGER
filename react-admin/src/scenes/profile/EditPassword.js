@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Button,
   Dialog,
@@ -28,7 +30,19 @@ export default function EditPassword() {
         action: "updatePass",
       })
       .then((res) => {
-        console.log(res.data);
+        if(res.data)
+        {
+          toast.success("Update Password successfully!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+        else
+        {
+          toast.warning("Update failed, Your password is incorrect!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+
       });
   }
 
@@ -81,6 +95,7 @@ export default function EditPassword() {
                 </Button>
               </div>
             </form>
+            {/* <ToastContainer/>; */}
           </CardBody>
         </Card>
       </Dialog>

@@ -1,17 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Input } from "@material-tailwind/react";
 import Header from "../../components/Header";
-import EditPassword from './EditPassword'
-import EditUsername from './EditUsername'
+import EditPassword from "./EditPassword";
+import EditUsername from "./EditUsername";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Profile = () => {
   // const [username, setUsername] = useState("VuLee");
   // const [password, setPassword] = useState("********");
-  const [fullname, setFullname] = useState("Lê Hoàng Anh Vũ");
-  const [email, setEmail] = useState("levu132003@gmail.com");
-  const [phoneNumber, setPhoneNumber] = useState("0935680614");
-  const [address, setAddress] = useState("Bụi đời");
-  const [onEdit, setOnEdit] = useState (false);
+
+  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [onEdit, setOnEdit] = useState(false);
+  useEffect(() => {
+    axios.post("http://localhost:3000/LTW_MANAGER/BE/index.php", {
+      id: 6,
+      action: "getUser",
+    }).then((res) => {
+      setFullname(res.data[0]["full_name"]);
+      setEmail(res.data[0]["email"]);
+      setPhoneNumber(res.data[0]["phone_number"]);
+      setAddress(res.data[0]["address"]);
+    });
+  }, []);
+ 
+
+
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -23,34 +41,41 @@ const Profile = () => {
     console.log("Phone Number:", phoneNumber);
     console.log("Address:", address);
   };
-  const handleEditInfo =  (e) => {
+  const handleEditInfo = async (e) => {
     e.preventDefault();
     setOnEdit(!onEdit);
 
-     axios.post("http://localhost:3000/LTW_MANAGER/BE/index.php",{
-      id: 8,
-      full_name: fullname,
-      email: email,
-      phone_number: phoneNumber,
-      action: "updateInfo",
-    }).then((res) => {console.log(res.data);
-  })
-
-    console.log(fullname);
-    console.log(email);
-    console.log(phoneNumber);
-    console.log(address);
-  }
+    await axios
+      .post("http://localhost:3000/LTW_MANAGER/BE/index.php", {
+        id: 6,
+        full_name: fullname,
+        email: email,
+        phone_number: phoneNumber,
+        address: address,
+        action: "updateInfo",
+      })
+      .then((res) => {
+        if (res.data) {
+          toast.success("Update Info successfully!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else {
+          toast.warning("Update failed!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+      });
+  };
   return (
     <div className="grid m-4 gap-y-4">
       <div className="grid grid-cols-2 gap-4">
         <Header title="Thông tin người dùng" />
         <div className="grid grid-cols-2 gap-4 h-2/4">
-          <EditUsername/>
-          <EditPassword/>
+          <EditUsername />
+          <EditPassword />
         </div>
       </div>
-      <form onSubmit={(e)=>handleEditInfo(e)}>
+      <form onSubmit={(e) => handleEditInfo(e)}>
         <div className="grid gap-y-4">
           <div className="grid grid-cols-1 gap-4">
             <div>
@@ -60,7 +85,7 @@ const Profile = () => {
                 name="email"
                 value={fullname}
                 onChange={(e) => setFullname(e.target.value)}
-                disabled = {onEdit}
+                disabled={onEdit}
               />
             </div>
             <div>
@@ -70,7 +95,7 @@ const Profile = () => {
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled = {onEdit}
+                disabled={onEdit}
               />
             </div>
             <div>
@@ -80,7 +105,7 @@ const Profile = () => {
                 name="phone_number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                disabled = {onEdit}
+                disabled={onEdit}
               />
             </div>
             <div>
@@ -90,22 +115,20 @@ const Profile = () => {
                 name="address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                disabled = {onEdit}
+                disabled={onEdit}
               />
             </div>
           </div>
           <div className="grid grid-cols-1 gap-4">
             <div className="flex justify-end">
-              <Button type="submit" >
-                {onEdit ? (`Lưu thông tin`) : (`Chỉnh sửa thông tin`)}
+              <Button type="submit">
+                {onEdit ? `Lưu thông tin` : `Chỉnh sửa thông tin`}
               </Button>
             </div>
           </div>
         </div>
-
-
-        
       </form>
+      {/* <ToastContainer/>; */}
     </div>
   );
 };
